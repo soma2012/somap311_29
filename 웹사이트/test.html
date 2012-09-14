@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>  
+	<head>  
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<script type="text/javascript" src="./js/jquery-1.7.1.min.js"></script>
+
+				<script type="text/ecmascript">
+
+
+				$(document).ready(function(){
+
+
+						$.post('/services', JSON.stringify({jsonrpc:'2.0', method:'get_blog_size', params:[], id:1}), 
+							function (data) {
+						//	console.log(data.result);
+							});
+
+
+
+						$.post('/services', JSON.stringify({jsonrpc:'2.0', method:'recent', params:[], id:1}), 
+							function (data) {
+							console.log(data);
+							//id
+							$("#total_search").append(data.result[0]['id'] + '<br/>');
+							//score
+							$("#total_search").append(data.result[0]['score'] + '<br/>');
+							//content
+							$("#total_search").append(data.result[0]['content'] + '<br/>');
+							//url
+							});
+
+
+
+
+
+				});
+
+	</script>  
+		</head>  
+			<body>  
+				<p id="total_search">
+					<p id="twitter">
+						<p id="blog">
+							<p id="search">
+								<p id="pmi">
+									<p id="movie">
+										<p id="science">
+											<p id="economy">
+												</div>
+													</body>  
+													</html>  
+

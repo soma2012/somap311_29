@@ -1,0 +1,596 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>Semantic Search Site</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="tprpc">
+        
+        <!-- Le styles -->
+        <link href="./css/bootstrap.css" rel="stylesheet">
+        <link href="./css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="./css/docs.css" rel="stylesheet">
+        <link href="./css/datepicker.css" rel="stylesheet">
+        
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <!--[if lte IE 8]>
+    	<link rel="stylesheet" type="text/css" href="./css/ie.css" />
+		<![endif]-->
+        
+        
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+        
+    </head>
+
+	<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="brand" href="./">Semantic Search</a>
+				<form class="navbar-search" action="." method="get" id="search-form">
+					<input type="text" class="span1" id="date" />
+					<input type="text" class="span2" id="keyword" placeholder="검색" />
+					<select id="category" class="span1">
+						<option value="recent">전체</option>
+						<option value="entertainment">엔터테인먼트</option>					
+						<option value="animation">애니메이션</option>
+						<!--<option value="book">도서</option>-->
+						<!--<option value="car">차</option>-->
+						<!--<option value="childcare">육아</option>-->
+						<option value="economy">경제</option>
+						<option value="fashion">패션</option>
+						<option value="food">음식</option>
+						<option value="game">게임</option>
+						<option value="infotech">IT</option>
+						<!--<option value="love">사랑</option>-->
+						<option value="movie">영화</option>
+						<option value="pet">동물</option>
+						<option value="politics">정치</option>
+						<!--<option value="adult">성인</option>-->
+						<option value="science">과학</option>
+						<option value="sports">스포츠</option>
+						<option value="travel">여행</option>
+						<option value="world">세계</option>
+					</select>
+					<input type="submit" class="btn" value="검색" />
+				</form>
+				<div class="nav-collapse collapse pull-right">
+					<ul class="nav">
+						<li class="">
+							<a href="#">총 수집 트윗 : <span id="cnttweet"></span>개</a>
+						</li>
+						<li class="">
+							<a href="#">총 수집 블로그 : <span id="cntblog"></span>개</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		 </div>
+    </div>
+    <div class="container main-page">
+		<div class="row">
+            <!-- MAIN CONTENT -->
+            <div class="span12">
+            	
+                <section style="padding-top:0px !important;">
+					<div class="row">
+						<div class="span12 block">
+                            <ul class="nav-tabs" id="category">
+									<li class="active"><a href="#recent" data-toggle="tab">전체</a></li>
+									<li><a href="#entertainment" data-toggle="tab">엔터테인먼트</a></li>					
+									<li><a href="#animation" data-toggle="tab">애니메이션</a></li>
+									<!--<li><a href="#book" data-toggle="tab">도서</a></li>-->
+									<!--<li><a href="#car" data-toggle="tab">차</a></li>-->
+									<!--<li><a href="#childcare" data-toggle="tab">육아</a></li>-->
+									<li><a href="#economy" data-toggle="tab">경제</a></li>
+									<li><a href="#fashion" data-toggle="tab">패션</a></li>
+									<li><a href="#food" data-toggle="tab">음식</a></li>
+									<li><a href="#game" data-toggle="tab">게임</a></li>
+									<li><a href="#infotech" data-toggle="tab">IT</a></li>
+									<!--<li><a href="#love" data-toggle="tab">사랑</a></li>-->
+									<li><a href="#movie" data-toggle="tab">영화</a></li>
+									<li><a href="#pet" data-toggle="tab">동물</a></li>
+									<li><a href="#politics" data-toggle="tab">정치</a></li>
+									<!--<li><a href="#adult" data-toggle="tab">성인</a></li>-->
+									<li><a href="#science" data-toggle="tab">과학</a></li>
+									<li><a href="#sports" data-toggle="tab">스포츠</a></li>
+									<li><a href="#travel" data-toggle="tab">여행</a></li>
+									<li><a href="#world" data-toggle="tab">세계</a></li>
+							</ul>
+							<div class="tab-content my_block">
+								<div class="tab-pane active" id="recent"></div>
+								<div class="tab-pane" id="entertainment"></div>
+								<div class="tab-pane" id="animation"></div>
+								<div class="tab-pane" id="book"></div>
+								<div class="tab-pane" id="car"></div>
+								<div class="tab-pane" id="childcare"></div>
+								<div class="tab-pane" id="economy"></div>
+								<div class="tab-pane" id="fashion"></div>
+								<div class="tab-pane" id="food"></div>
+								<div class="tab-pane" id="game"></div>
+								<div class="tab-pane" id="infotech"></div>
+								<div class="tab-pane" id="love"></div>
+								<div class="tab-pane" id="movie"></div>
+								<div class="tab-pane" id="pet"></div>
+								<div class="tab-pane" id="politics"></div>
+								<div class="tab-pane" id="adult"></div>
+								<div class="tab-pane" id="science"></div>
+								<div class="tab-pane" id="sports"></div>
+								<div class="tab-pane" id="travel"></div>
+								<div class="tab-pane" id="world"></div>
+							</div>
+                        </div>
+					</div>
+                    <div id="articles" class="row" style="min-height:150px;">
+                    </div>
+					<div id="status" class="row">
+						<div class="box design marketing block">
+                            <div class="view view-first">
+                            	<div class="tringle"></div>
+                                <div class="mask">
+                                    <a href="#" class="link"></a>
+                                </div>
+                             </div>
+                             <div class="descr">
+                                <h4><a href="#">실시간 수집 트윗 건수</a></h4>
+                                <div id="placeholder" style="width:200px;height:300px;"></div>
+                             </div>
+                        </div>
+						<div class="box design marketing block">
+                            <div class="view view-first">
+                            	<div class="tringle"></div>
+                                <div class="mask">
+                                    <a href="#" class="link"></a>
+                                </div>
+                             </div>
+                             <div class="descr">
+								<h4><a href="#">이슈키워드</a></h4>
+								<div id="issuecloud">Loading...</div>
+                             </div>
+                        </div>
+					</div>
+				</section>
+                    
+                
+                <!-- FOOTER -->
+                <footer>
+                	<div class="row">
+                    	<div class="span12">
+                        	<hr>
+                        </div>
+                        <div class="span12">
+                        	<p>소프트웨어 마에스트로 프로젝트 - <strong> [남상협 멘토님] 이태우, 노연재</strong></p>
+                        </div>
+                    </div>
+                </footer>
+                <!-- /FOOTER -->
+            
+            </div>
+            <!-- /MAIN CONTENT -->
+            
+        </div>
+    </div>
+	
+    
+
+    <script type="text/javascript" src="./js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    <script src="./js/bootstrap-transition.js"></script>
+    <script src="./js/bootstrap-alert.js"></script>
+    <script src="./js/bootstrap-modal.js"></script>
+    <script src="./js/bootstrap-dropdown.js"></script>
+    <script src="./js/bootstrap-scrollspy.js"></script>
+    <script src="./js/bootstrap-tab.js"></script>
+    <script src="./js/bootstrap-tooltip.js"></script>
+    <script src="./js/bootstrap-popover.js"></script>
+    <script src="./js/bootstrap-button.js"></script>
+    <script src="./js/bootstrap-collapse.js"></script>
+    <script src="./js/bootstrap-carousel.js"></script>
+    <script src="./js/bootstrap-typeahead.js"></script>
+    <script src="./js/bootstrap-datepicker.js"></script>
+    <script src="./js/jquery.easing.1.3.js"></script>
+    <script src="./js/jquery.prettyPhoto.js"></script>
+	<script src="./js/jquery.waitforimages.js"></script>
+    <script src="./js/jquery.isotope.min.js"></script>
+	<script src="./js/jquery.flot.js"></script>
+    <script src="./js/jquery.preloader.js"></script>
+    <script src="./js/custom.js"></script>
+	<script type="text/javascript" src="./issuecloud/swfobject.js"></script>
+
+	
+	<script type="text/javascript">
+	jQuery.noConflict()(function($){
+		var inSearch = false;
+		var keyword = '';
+		var date = '';
+		var category ='';
+		var beforeDay = 0;
+		var $container = $('#articles');
+		
+		function loadParameter() {
+			url = location.href.toString().split('#!/');
+			console.log(url);
+			if(url.length  > 1) {
+				parameter = url[1].split('/');
+				
+				$('#date').val(parameter[0]);
+				$('#category').val(parameter[1]);
+				$('#keyword').val(parameter[2]);
+				
+				date = parameter[0] == null ? '' : parameter[0];
+				category = parameter[1] == null ? '' : parameter[1];
+				keyword = parameter[2] == null ? '' : parameter[2];
+				
+				inSearch = true;
+				console.log(parameter);
+				
+			}else{
+				url[0] = location.href.toString();
+				
+			}
+			
+			// 날짜 관련 이동 
+			// 오늘날짜
+			var date = new Date();
+		
+			if($('#date').val() == '') { 
+				$('#date').val(date.getFullYear() + '-' + leadingZeros(date.getMonth()+1,2) + '-' + leadingZeros(date.getDate(),2));
+				
+			}else{
+				inputDate = $('#date').val().split('-');
+				var lastDate = new Date(inputDate[0],inputDate[1]-1,inputDate[2]);
+				var day_calc = (lastDate.getTime()-date.getTime()) / (24*60*60*1000);
+				beforeDay = Math.ceil(day_calc) * -1; 
+				//alert(beforeDay);
+			}
+			
+			$('#category .active a').click();
+			addData();
+		}
+		
+		loadParameter();
+		
+		//데이터 입력시
+		$('#search-form').submit(function() {
+			location.href = url[0] + '#!/' + $('#date').val() + '/' + $('#category').val() + '/' + $('#keyword').val();
+			
+			date = $('#date').val();
+			keyword = $('#keyword').val();
+			category = $('#category').val();
+			
+			//location.reload();
+			
+			loadParameter();
+			
+			return false;
+		});
+		
+		
+		
+		
+		$('#date').datepicker({
+			format: 'yyyy-mm-dd'
+		}).on('changeDate', function(e) {
+			$('#date').datepicker('hide');
+			
+			$('#search-form').submit();
+			$('#keyword').focus();
+		});
+		
+		
+		function addData() {
+			var html = '';
+			$.getJSON('/~tprpc/service/update.php', function(data){
+				$.each(data, function() {
+					html += '<div class="box block">\n';
+					html += '    <div class="view view-first">\n';
+					html += '    	<div class="tringle"></div>\n';
+					if(this.polarity > 3) { 
+					html += '    	<div class="positive"></div>\n';
+					}else if(this.polarity < 3){
+					html += '    	<div class="negative"></div>\n';
+					}
+					html += '        <div class="mask">\n';
+					html += '            <a href="#" class="link"></a>\n';
+					html += '        </div>\n';
+					html += '     </div>\n';
+					html += '     <div class="descr">\n';
+					html += '        <h4><a target="__new" href="http://twitter.com/'+this.twitid+'/status/'+this.timestamp+'">'+this.username+'</a></h4>';
+					html += '		<h5>'+this.tweet_time+'</h5>\n';
+					html += '        <p>'+this.tweet+'</p>\n';
+					html += '     </div>\n';
+					html += '</div>\n';
+					html += '\n';
+				});
+				
+				$("#articles").prepend(html);
+				$("#articles").isotope('reloadItems').isotope({sortBy: 'original-order'});
+				setTimeout(addData, 10000);
+			});	
+		
+		}
+			
+		
+		
+		
+		function search(keyword,category,from,to) {
+			html = '';
+			if(category == 'recent') category = '';
+			inSearch = true;
+			 $.post('/services', JSON.stringify({jsonrpc:'2.0', method:'search', params:[keyword,category,from,to], id:1}), 
+					function (data) {
+						
+							
+							
+						html = '';
+						html += '<div class="box block positive negative normal">\n';
+						html += '    <div class="view view-first">\n';
+						html += '    	<div class="tringle"></div>\n';
+						html += '       <div class="mask">\n';
+						html += '            <a href="#" class="link"></a>\n';
+						html += '       </div>\n';
+						html += '     </div>\n';
+						html += '     <div class="descr">\n';
+						if(category != '') category = '('+category+')';
+						html += '        <h3>검색어 : '+keyword+category+'</h3>';
+						html += '        <div class="filters">';
+						html += '			<button data-filter="*" class="btn btn-info">모두보기</button>\n';
+						html += '			<button data-filter=".positive" class="btn btn-success">긍정</button>\n';
+						html += '			<button data-filter=".normal" class="btn btn-primary">일반</button>\n';
+						html += '			<button data-filter=".negative" class="btn btn-danger">부정</button>\n';
+
+						html += '		</div>\n';
+						html += '     </div>\n';
+						html += '</div>\n';
+						html += '\n';
+					
+					
+					
+					console.log(data);
+					if(data.result != null) {
+						$.each(data.result, function() {
+							polarity = 'positive negative normal';
+							if(this.polarity > 3.5) {
+								polarity = 'positive';
+							}else if(this.polarity < 2.5){
+								polarity = 'negative';
+							}else{
+								polarity = 'normal';
+							}
+							
+							html += '<div class="box block '+polarity+'" article-date="'+this.date+'" data-filter="'+polarity+'">\n';
+							if(polarity == 'positive negative normal') polarity = '';
+							html += '    <div class="view view-first">\n';
+							html += '    	<div class="tringle"></div>\n';
+							html += '    	<div class="flag_'+polarity+'"></div>\n';
+							
+							html += '        <div class="mask">\n';
+							html += '            <a href="#" class="link"></a>\n';
+							html += '        </div>\n';
+							html += '     </div>\n';
+							html += '     <div class="descr">\n';
+							html += '        <h4><a target="_blank" href="'+this.url+'">'+this.id+'</a></h4>';
+							html += '		<h5>'+this.date+'</h5>\n';
+							html += '        <p>'+this.content+'</p>\n';
+							html += '     </div>\n';
+							html += '</div>\n';
+							html += '\n';
+						});
+					}
+					//alert(html);
+					
+					
+				$("#articles").html(html);
+				$("#articles").isotope('reloadItems').isotope({sortBy: 'original-order',filter: '*'});
+				
+				//다시 이벤트 지정 (버튼 클릭 이벤트
+			// filter items when filter link is clicked
+			$('.filters button').click(function(){
+				var selector = $(this).attr('data-filter');
+				$("#articles").isotope({filter: selector});
+		  
+			return false;
+			});
+
+			});
+		
+		}
+		function getKeyword(category) {
+		if(category == 'recent') category = '';
+			$.post('/services', JSON.stringify({jsonrpc:'2.0', method:'get_pmi', params:[category,beforeDay], id:1}), 
+				function (data) {
+				console.log("keyword");
+				console.log(data);
+				//word
+				tabdata = '<div class=""><h3>'+$('#date').val()+'</h3><span class="label label-success">관련 이슈키워드</span>\n';
+				for(var x in data.result){
+					
+					//$("#pmi").append(data.result[x]['pmi'] + '<br/>');
+					//pmi rank
+					class_name = '';
+					if(data.result[x]['pmi'] > 2) {
+						class_name = 'label-big';
+					}
+					tabdata += '<span keyword="'+data.result[x]['word']+'" category="'+data.result[x]['subject']+'" class="issuekey label label-info '+class_name+'">'+data.result[x]['word']+'</span>\n';
+					//
+					//$("#pmi").append(  + '<br/>');
+					//subject
+					//$("#pmi").append(data.result[x]['subject'] + '<br/><br/>');
+				}
+				tabdata += '</div>';
+				$(tid).html(tabdata);
+				
+				//다시 이벤트 지정 (버튼 클릭 이벤트
+				$('.issuekey').click(function(){
+				  var keyword = $(this).attr('keyword');
+				  var category = $(this).attr('category');
+				  search(keyword,category,'','');
+				  return false;
+				});
+		
+			});
+		}
+		// 카테고리 클릭할때 
+		$('#category a').click(function (e) {
+		  e.preventDefault();
+		  var tabdata = '<div class="progress progress-striped active"><div class="bar" style="width:100%;"></div></div>';
+		  data=this.toString().split('#');
+		  tid = '#' + data[1];
+		  
+		  $(tid).html(tabdata);
+		  
+		  // 키워드 가져오기
+		  getKeyword(data[1]);
+
+		  
+		  $(this).tab('show');
+		});
+		
+		$('#category .active a').click();
+		
+			
+		function leadingZeros(n, digits) {
+		  var zero = '';
+		  n = n.toString();
+
+		  if (n.length < digits) {
+			for (i = 0; i < digits - n.length; i++)
+			  zero += '0';
+		  }
+		  return zero + n;
+		}
+	});
+	jQuery.noConflict()(function($){
+		// we use an inline data source in the example, usually data would
+		// be fetched from a server
+		var data = [], totalPoints = 200;
+		function getRandomData() {
+			if (data.length > 0)
+				data = data.slice(1);
+
+			// do a random walk
+			while (data.length < totalPoints) {
+				var prev = data.length > 0 ? data[data.length - 1] : 50;
+				var y = prev + Math.random() * 10 - 5;
+				if (y < 0)
+					y = 0;
+				if (y > 150) {
+					y = 150;
+				}
+					
+				data.push(y);
+			}
+			// zip the generated y values with the x values
+			var res = [];
+			for (var i = 0; i < data.length; ++i)
+				res.push([i, data[i]])
+			return res;
+		}
+		
+		// setup control widget
+		var updateInterval = 50;
+		var realInerval = 20;
+		var realCnt = 0;
+		// setup plot
+		var options = {
+			series: { shadowSize: 0 }, // drawing is faster without shadows
+			yaxis: { min: 0, max: 150 },
+			xaxis: { show: false }
+		};
+		var plot = $.plot($("#placeholder"), [ getRandomData()], options);
+
+		function update() {
+			plot.setData([ getRandomData()]);
+			// since the axes don't change, we don't need to call plot.setupGrid()
+			plot.draw();
+			
+			if(realCnt < realInerval) {
+				setTimeout(update, updateInterval);
+				realCnt++;
+			}else{
+				setTimeout(realUpdate, updateInterval);
+				realCnt=0;
+			}
+			
+		}
+		
+		function realUpdate() {
+			
+			$.getJSON('/~tprpc/service/live.php', function(res){
+				if (data.length > 0)
+					data = data.slice(1);
+			
+				data.push(Number(res.cnt));
+				$("#cnttweet").html(res.total_cnt);
+				setTimeout(update, updateInterval);
+			});
+			$.post('/services', JSON.stringify({jsonrpc:'2.0', method:'get_blog_size', params:[], id:1}), 
+				function (data) {
+				$("#cntblog").html(data.result);
+			});
+			
+		}
+		
+
+		realUpdate();
+		
+		
+		// 이슈
+		
+		
+		$.post('/services', JSON.stringify({jsonrpc:'2.0', method:'get_pmi', params:['',1], id:1}), 
+			function (data) {
+			//console.log("키워드 클라우드에 가져오기");
+			//console.log(data);
+			
+			
+			var tags = '<tags>';
+			
+			for(var x in data.result){
+				subject = new Array();
+				subject['animation'] = '228b22';
+				subject['economy'] = '228b22';
+				subject['fashion'] = '8b4513';
+				subject['food'] = '8b4513';
+				subject['game'] = 'ff1493';
+				subject['infotech'] = 'ff1493';
+				subject['movie'] = '191970';
+				subject['pet'] = '191970';
+				subject['politics'] = '191970';
+				subject['science'] = 'ff1493';
+				subject['sports'] = 'ff1493';
+				subject['travel'] = 'ff1493';
+				subject['world'] = 'ff1493';
+				
+				tags += "<a href='#' style='11' color='0x"+subject[data.result[x]['subject']]+"' hicolor='0xF2B512'>"+data.result[x]['word']+"</a>";
+			}
+			tags += "</tags>";
+			
+			//console.log(tags);
+			
+			var so = new SWFObject("./issuecloud/tagcloud.swf", "tagcloud", "100%", "200", "7", "#ffffff");
+			// uncomment next line to enable transparency
+			//so.addParam("wmode", "transparent");
+			so.addVariable("tcolor", "0x3258B8");
+			so.addVariable("mode", "tags");
+			so.addVariable("distr", "true");
+			so.addVariable("tspeed", "100");
+			so.addVariable("tagcloud", tags);
+			
+			so.write("issuecloud");
+
+		  });
+		 
+	});
+</script>
+</body>
+</html>
